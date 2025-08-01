@@ -96,19 +96,11 @@ export default defineNuxtConfig({
     },
   },
 
-  modules: ['@nuxt/content', '@nuxtjs/fontaine'],
-
-  fontMetrics: {
-    fonts: [
-      {
-        family: 'e-Ukraine',
-        src: '/fonts/e-Ukraine-Thin.woff2',
-        fallbacks: ['Arial'],
-      },
-    ],
-  },
+  modules: ['@nuxt/content'],
 
   vite: {
     plugins: [SVGLoader({ svgo: false }), GLSL({ compress: !isDevelopment })],
   },
+
+  compatibilityDate: '2025-08-01',
 });
