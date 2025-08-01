@@ -2,4 +2,4 @@ public
 .nuxt
 .output
 dist
-.yarn
+node_modules

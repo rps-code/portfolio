@@ -9,7 +9,6 @@
   >
     <!-- NOTE: use of $route instead of just route is really important for good animation -->
     <div
-      class="bg-red-500"
       page-content
       :key="$route.fullPath"
     >

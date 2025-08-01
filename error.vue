@@ -44,7 +44,7 @@
   const props = defineProps({ error: { type: Object, required: true } })
 
   useHead({
-    title: () => props.error.statusCode.toString()
+    title: () => props.error.statusCode
   })
 </script>
 
