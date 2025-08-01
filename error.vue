@@ -1,24 +1,42 @@
 <template>
-  <main
-    id="scroller"
-    class="error-page"
-  >
-    <p
-      class="error-page__message"
-      :class="{ 'error-page__message--404': error.statusCode === 404 }"
-    >
-      <template v-if="error.statusCode == 404">404</template>
-      <template v-else>
-        {{ error.message }}
-      </template>
-    </p>
+  <main>
+    <div class="flex justify-center items-center flex-col min-h-screen overflow-hidden">
+      <div class="text-center space-y-8">
+        <h1
+          class="text-[clamp(4rem,20vw,16rem)] font-black !mt-0 bg-gradient-to-r from-purple-400 via-pink-400 to-cyan-400 bg-clip-text text-transparent leading-none tracking-tighter animate-fade-in"
+        >
+          {{ error.statusCode }}
+        </h1>
 
-    <a
-      href="/"
-      class="error-page__home-link"
-    >
-      Go back home, okay?
-    </a>
+        <div class="space-y-4 max-w-2xl mx-auto px-6">
+          <h2 class="text-2xl md:text-3xl font-bold text-white/90 animate-slide-up">
+            {{ error.statusCode === 404 ? 'Page Not Found' : 'Generic Error' }}
+          </h2>
+
+          <p
+            class="text-lg text-white/60 leading-relaxed animate-slide-up"
+            style="animation-delay: 0.2s"
+          >
+            <template v-if="error.statusCode === 404">
+              The page you're looking for seems to have vanished into the digital void. But don't worry, we'll help you find your way back.
+            </template>
+            <template v-else>Something unexpected happened, and I'm sorry I let you down like this ::: {{ error.message || 'An error occurred' }}</template>
+          </p>
+        </div>
+
+        <div
+          class="animate-slide-up"
+          style="animation-delay: 0.4s"
+        >
+          <NuxtLink
+            to="/"
+            class="text-3xl text-center no-underline leading-relaxed bg-gradient-to-t from-white to-white bg-no-repeat bg-[length:100%_1px] bg-[position:100%_100%] transition-all duration-300 hover:text-black hover:bg-[length:100%_100%] focus-visible:text-black focus-visible:bg-[length:100%_100%] text-white"
+          >
+            Go Home
+          </NuxtLink>
+        </div>
+      </div>
+    </div>
   </main>
 </template>
 
@@ -30,62 +48,35 @@
   })
 </script>
 
-<style lang="scss" scoped>
-  .error-page {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-direction: column;
-
-    min-height: 100vh;
-
-    &__message {
-      font-size: 2rem;
-      text-align: center;
-
-      width: calc(100% - 2rem);
-      max-width: 35ch;
-
-      transition:
-        background-size 0.5s,
-        color 0.5s,
-        text-shadow 0.5s;
-
-      &--404 {
-        font-size: min(calc(32vw + 1rem), 31rem);
-        font-weight: 600;
-        font-variant-numeric: oldstyle-nums;
-        font-style: italic;
-
-        text-shadow: 0 0 2rem #ccc;
-
-        margin-block: max(-10vw, -9rem) calc(1rem + 1vw);
-
-        opacity: 0.25;
-      }
+<style scoped>
+  @keyframes fade-in {
+    from {
+      opacity: 0;
+      transform: scale(0.8);
     }
-
-    &__home-link {
-      font-size: 1.75rem;
-      text-align: center;
-      color: currentColor;
-      text-decoration: none;
-      line-height: 1.4;
-
-      background-image: linear-gradient(to top, var(--ff-color) 0%, var(--ff-color) 0%);
-      background-repeat: no-repeat;
-      background-size: 100% 1px;
-      background-position: 100% 100%;
-
-      transition:
-        background-size 0.3s ease,
-        color 0.4s ease;
-
-      &:is(:hover, :focus-visible) {
-        color: var(--surface-color);
-
-        background-size: 100% 100%;
-      }
+    to {
+      opacity: 1;
+      transform: scale(1);
     }
+  }
+
+  @keyframes slide-up {
+    from {
+      opacity: 0;
+      transform: translateY(30px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  .animate-fade-in {
+    animation: fade-in 1s ease-out;
+  }
+
+  .animate-slide-up {
+    animation: slide-up 0.8s ease-out forwards;
+    opacity: 0;
   }
 </style>
