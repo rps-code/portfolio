@@ -1,6 +1,7 @@
 import { isDevelopment } from 'std-env'
 import GLSL from 'vite-plugin-glsl'
 import SVGLoader from 'vite-svg-loader'
+import tailwindcss from '@tailwindcss/vite'
 
 // https://v3.nuxtjs.org/api/configuration/nuxt.config
 export default defineNuxtConfig({
@@ -89,10 +90,10 @@ export default defineNuxtConfig({
     }
   },
 
-  modules: ['@nuxt/content'],
+  modules: ['@nuxt/content', '@nuxt/eslint'],
 
   vite: {
-    plugins: [SVGLoader({ svgo: false }), GLSL({ compress: !isDevelopment })]
+    plugins: [SVGLoader({ svgo: false }), GLSL({ compress: !isDevelopment }), tailwindcss()]
   },
 
   compatibilityDate: '2025-08-01'

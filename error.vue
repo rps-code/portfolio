@@ -1,11 +1,3 @@
-<script setup>
-  const props = defineProps({ error: { type: Object, required: true } })
-
-  useHead({
-    title: () => props.error.statusCode.toString()
-  })
-</script>
-
 <template>
   <main
     id="scroller"
@@ -24,10 +16,19 @@
     <a
       href="/"
       class="error-page__home-link"
-      >Maybe to home ?</a
     >
+      Go back home, okay?
+    </a>
   </main>
 </template>
+
+<script setup>
+  const props = defineProps({ error: { type: Object, required: true } })
+
+  useHead({
+    title: () => props.error.statusCode.toString()
+  })
+</script>
 
 <style lang="scss" scoped>
   .error-page {
