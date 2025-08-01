@@ -5,15 +5,15 @@
 export function useImagesLoaded(refEl, callback) {
   const stop = watch(
     () => unref(refEl),
-    (el) => {
-      if (!el) return;
+    el => {
+      if (!el) return
 
-      stop();
+      stop()
 
-      waitForImages(el).then(callback);
+      waitForImages(el).then(callback)
     },
-    { immediate: true },
-  );
+    { immediate: true }
+  )
 }
 
 /**
@@ -21,29 +21,26 @@ export function useImagesLoaded(refEl, callback) {
  * @return {Promise<void>}
  */
 function waitForImages(wrapper) {
-  const images = wrapper.querySelectorAll('img');
+  const images = wrapper.querySelectorAll('img')
 
-  return new Promise((resolve) => {
-    let numberOfLoadedImages = 0;
+  return new Promise(resolve => {
+    let numberOfLoadedImages = 0
 
-    const loadListener = (imageOrLoadEvent) => {
+    const loadListener = imageOrLoadEvent => {
       if (images.length == ++numberOfLoadedImages) {
-        resolve();
+        resolve()
 
-        const image = imageOrLoadEvent.removeEventListener
-          ? imageOrLoadEvent
-          : imageOrLoadEvent.target;
+        const image = imageOrLoadEvent.removeEventListener ? imageOrLoadEvent : imageOrLoadEvent.target
 
-        image.removeEventListener('load', loadListener, true);
+        image.removeEventListener('load', loadListener, true)
       }
-    };
+    }
 
-    images.forEach((image) => {
+    images.forEach(image => {
       // In my case lazy images could be just ignored, but if needed you can create
       // `new Image` with appropriate src and wait for load event on this image
-      if (image.complete || image.getAttribute('loading') === 'lazy')
-        loadListener(image);
-      else image.addEventListener('load', loadListener, true);
-    });
-  });
+      if (image.complete || image.getAttribute('loading') === 'lazy') loadListener(image)
+      else image.addEventListener('load', loadListener, true)
+    })
+  })
 }

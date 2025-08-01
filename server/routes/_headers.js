@@ -1,6 +1,6 @@
-export default defineEventHandler((event) => {
+export default defineEventHandler(event => {
   // NOTE: by default nitro will prerender this as html ¯\_(ツ)_/¯
-  setHeader(event, 'Content-Type', 'text/plain');
+  setHeader(event, 'Content-Type', 'text/plain')
 
   return `/*
 \tX-Robots-Tag: all
@@ -11,5 +11,5 @@ export default defineEventHandler((event) => {
 \tCache-Control: private, must-revalidate, max-age=0
 
 /_nuxt/*
-\tCache-Control: public, immutable, max-age=604800, stale-while-revalidate=16070400`;
-});
+\tCache-Control: public, immutable, max-age=604800, stale-while-revalidate=16070400`
+})

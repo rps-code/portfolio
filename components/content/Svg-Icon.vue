@@ -1,27 +1,30 @@
 <script setup>
-const props = defineProps({
-  name: { type: String, required: true, default: '' },
-});
+  const props = defineProps({
+    name: { type: String, required: true, default: '' }
+  })
 
-const icons = useIcons();
+  const icons = useIcons()
 
-const icon = computed(() => icons.value[props.name] || '');
+  const icon = computed(() => icons.value[props.name] || '')
 </script>
 
 <template>
   <!-- eslint-disable-next-line -->
-  <span class="project-svg-icon" v-html="icon" />
+  <span
+    class="project-svg-icon"
+    v-html="icon"
+  />
 </template>
 
 <style lang="scss">
-.project-svg-icon {
-  display: inline-block;
+  .project-svg-icon {
+    display: inline-block;
 
-  width: auto;
-  height: auto;
+    width: auto;
+    height: auto;
 
-  svg {
-    width: 100%;
+    svg {
+      width: 100%;
+    }
   }
-}
 </style>

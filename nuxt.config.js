@@ -1,6 +1,6 @@
-import { isDevelopment } from 'std-env';
-import GLSL from 'vite-plugin-glsl';
-import SVGLoader from 'vite-svg-loader';
+import { isDevelopment } from 'std-env'
+import GLSL from 'vite-plugin-glsl'
+import SVGLoader from 'vite-svg-loader'
 
 // https://v3.nuxtjs.org/api/configuration/nuxt.config
 export default defineNuxtConfig({
@@ -24,10 +24,10 @@ export default defineNuxtConfig({
         {
           property: 'og:site_name',
           name: 'og:site_name',
-          content: 'Bogdan Kostyuk',
+          content: 'Bogdan Kostyuk'
         },
         { property: 'og:locale', name: 'og:locale', content: 'en' },
-        { property: 'og:type', name: 'og:type', content: 'website' },
+        { property: 'og:type', name: 'og:type', content: 'website' }
       ],
       link: [
         { rel: 'icon', type: 'image/svg+xml', href: '/favicon.svg' },
@@ -35,72 +35,65 @@ export default defineNuxtConfig({
           rel: 'icon',
           type: 'image/x-icon',
           href: '/favicon.ico',
-          sizes: 'any',
+          sizes: 'any'
         },
         {
           rel: 'icon',
           type: 'image/png',
           sizes: '32x32',
-          href: '/favicon-32x32.png',
+          href: '/favicon-32x32.png'
         },
         {
           rel: 'icon',
           type: 'image/png',
           sizes: '16x16',
-          href: '/favicon-16x16.png',
+          href: '/favicon-16x16.png'
         },
         {
           rel: 'apple-touch-icon',
           sizes: '180x180',
-          href: '/apple-touch-icon.png',
+          href: '/apple-touch-icon.png'
         },
-        { rel: 'manifest', href: '/site.webmanifest' },
-      ],
-    },
+        { rel: 'manifest', href: '/site.webmanifest' }
+      ]
+    }
   },
 
   runtimeConfig: {
     public: {
-      base: isDevelopment
-        ? 'http://localhost:3000'
-        : 'https://bogdankostyuk.xyz',
-    },
+      base: isDevelopment ? 'http://localhost:3000' : 'https://bogdankostyuk.xyz'
+    }
   },
 
   imports: {
-    imports: [{ name: 'on', from: 'rad-event-listener' }],
+    imports: [{ name: 'on', from: 'rad-event-listener' }]
   },
 
   routeRules: {
     '/sitemap.xml': { prerender: true },
-    '/_headers': { prerender: true },
+    '/_headers': { prerender: true }
   },
 
   sourcemap: isDevelopment,
 
-  css: [
-    'normalize.css/normalize.css',
-    'locomotive-scroll/dist/locomotive-scroll.css',
-    '~/assets/styles/fonts.css',
-    '~/assets/styles/global.css',
-  ],
+  css: ['normalize.css/normalize.css', 'locomotive-scroll/dist/locomotive-scroll.css', '~/assets/styles/fonts.css', '~/assets/styles/global.css'],
 
   build: {
-    transpile: ['gsap', 'std-env'],
+    transpile: ['gsap', 'std-env']
   },
 
   nitro: {
     prerender: {
       crawlLinks: true,
-      concurrency: 4,
-    },
+      concurrency: 4
+    }
   },
 
   modules: ['@nuxt/content'],
 
   vite: {
-    plugins: [SVGLoader({ svgo: false }), GLSL({ compress: !isDevelopment })],
+    plugins: [SVGLoader({ svgo: false }), GLSL({ compress: !isDevelopment })]
   },
 
-  compatibilityDate: '2025-08-01',
-});
+  compatibilityDate: '2025-08-01'
+})

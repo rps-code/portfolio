@@ -1,9 +1,9 @@
 <script setup>
-import ArrowLink from '~/assets/img/arrow-outer-link.svg';
+  import ArrowLink from '~/assets/img/arrow-outer-link.svg'
 
-defineProps({
-  href: { type: String, required: true, default: '' },
-});
+  defineProps({
+    href: { type: String, required: true, default: '' }
+  })
 </script>
 
 <template>
@@ -13,50 +13,53 @@ defineProps({
     class="project-link"
     target="_blank"
   >
-    <ContentSlot :use="$slots.default" :unwrap="true" />
+    <ContentSlot
+      :use="$slots.default"
+      :unwrap="true"
+    />
     <ArrowLink class="project-link__arrow-svg" />
   </NuxtLink>
 </template>
 
 <style lang="scss">
-.project-link {
-  --size: var(--step--1);
+  .project-link {
+    --size: var(--step--1);
 
-  display: inline-block;
+    display: inline-block;
 
-  font: inherit;
-  font-size: var(--size);
+    font: inherit;
+    font-size: var(--size);
 
-  color: var(--ff-color);
-  text-decoration: none;
-  text-transform: lowercase;
+    color: var(--ff-color);
+    text-decoration: none;
+    text-transform: lowercase;
 
-  opacity: 0.7;
-  cursor: none;
+    opacity: 0.7;
+    cursor: none;
 
-  &__arrow-svg {
-    width: var(--size);
-    height: auto;
+    &__arrow-svg {
+      width: var(--size);
+      height: auto;
 
-    margin-left: 0.5rem;
+      margin-left: 0.5rem;
 
-    transform: translateY(15%);
-  }
+      transform: translateY(15%);
+    }
 
-  &[no-lowercase] {
-    text-transform: none;
-  }
+    &[no-lowercase] {
+      text-transform: none;
+    }
 
-  &[size-inherit] {
-    display: inline-flex;
+    &[size-inherit] {
+      display: inline-flex;
 
-    font-size: inherit;
+      font-size: inherit;
 
-    height: min-content;
+      height: min-content;
 
-    .project-link__arrow-svg {
-      transform: scale(1.125);
+      .project-link__arrow-svg {
+        transform: scale(1.125);
+      }
     }
   }
-}
 </style>

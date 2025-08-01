@@ -5,9 +5,9 @@
 </template>
 
 <style lang="scss">
-.project-main {
-  width: 100%;
+  .project-main {
+    width: 100%;
 
-  padding-top: 10rem;
-}
+    padding-top: 10rem;
+  }
 </style>

@@ -1,49 +1,46 @@
 <script setup>
-const props = defineProps({
-  alt: { type: String, required: true, default: '' },
-  src: { type: String, required: true, default: '' },
-  type: { type: String, required: false, default: '' },
-  preload: { type: Boolean, required: false, default: false },
-});
+  const props = defineProps({
+    alt: { type: String, required: true, default: '' },
+    src: { type: String, required: true, default: '' },
+    type: { type: String, required: false, default: '' },
+    preload: { type: Boolean, required: false, default: false }
+  })
 
-const imageRef = ref(null);
-const imageWrapperRef = ref(null);
+  const imageRef = ref(null)
+  const imageWrapperRef = ref(null)
 
-const { gsap } = useGsap();
+  const { gsap } = useGsap()
 
-if (process.server) {
-  useHead(
-    { link: [{ rel: 'preload', as: 'image', href: props.src }] },
-    { mode: 'server' },
-  );
-}
+  if (process.server) {
+    useHead({ link: [{ rel: 'preload', as: 'image', href: props.src }] }, { mode: 'server' })
+  }
 
-onMounted(() => {
-  if (props.type !== 'fwidth') return;
+  onMounted(() => {
+    if (props.type !== 'fwidth') return
 
-  const imageScaleInPercent = 150;
-  const speedDivider = 3.5;
+    const imageScaleInPercent = 150
+    const speedDivider = 3.5
 
-  gsap.set(imageRef.value, { scale: imageScaleInPercent * 0.01 });
-  const animation = gsap.fromTo(
-    imageRef.value,
-    { y: -imageRef.value.clientHeight / speedDivider },
-    {
-      y: imageRef.value.clientHeight / speedDivider,
-      ease: 'none',
-      scrollTrigger: {
-        trigger: imageWrapperRef.value,
-        start: 'top bottom',
-        end: 'bottom top',
-        scrub: 0.1,
-      },
-    },
-  );
+    gsap.set(imageRef.value, { scale: imageScaleInPercent * 0.01 })
+    const animation = gsap.fromTo(
+      imageRef.value,
+      { y: -imageRef.value.clientHeight / speedDivider },
+      {
+        y: imageRef.value.clientHeight / speedDivider,
+        ease: 'none',
+        scrollTrigger: {
+          trigger: imageWrapperRef.value,
+          start: 'top bottom',
+          end: 'bottom top',
+          scrub: 0.1
+        }
+      }
+    )
 
-  onBeforeUnmount(() => {
-    animation.scrollTrigger.kill();
-  });
-});
+    onBeforeUnmount(() => {
+      animation.scrollTrigger.kill()
+    })
+  })
 </script>
 
 <template>
@@ -76,39 +73,39 @@ onMounted(() => {
 </template>
 
 <style lang="scss">
-.project-image {
-  display: block;
-
-  width: 100%;
-  height: auto;
-
-  object-fit: cover;
-
-  box-shadow: 0 0 1rem 0 rgba($color: #000000, $alpha: 0.025);
-
-  &--fwidth {
-    position: relative;
-    z-index: -1;
-
-    max-height: 90vh;
-
-    opacity: 1;
-    box-shadow: none;
-
-    transition: none;
-    transition-delay: none;
-  }
-
-  &__wrapper {
-    position: relative;
-    z-index: 1;
+  .project-image {
+    display: block;
 
     width: 100%;
     height: auto;
 
-    overflow: hidden;
+    object-fit: cover;
 
     box-shadow: 0 0 1rem 0 rgba($color: #000000, $alpha: 0.025);
+
+    &--fwidth {
+      position: relative;
+      z-index: -1;
+
+      max-height: 90vh;
+
+      opacity: 1;
+      box-shadow: none;
+
+      transition: none;
+      transition-delay: none;
+    }
+
+    &__wrapper {
+      position: relative;
+      z-index: 1;
+
+      width: 100%;
+      height: auto;
+
+      overflow: hidden;
+
+      box-shadow: 0 0 1rem 0 rgba($color: #000000, $alpha: 0.025);
+    }
   }
-}
 </style>

@@ -1,9 +1,9 @@
 export function useGsap() {
-  const nuxtApp = useNuxtApp();
+  const nuxtApp = useNuxtApp()
 
   return {
     gsap: nuxtApp.$gsap,
     ScrollTrigger: nuxtApp.$ScrollTrigger,
-    ScrollToPlugin: nuxtApp.$ScrollToPlugin,
-  };
+    ScrollToPlugin: nuxtApp.$ScrollToPlugin
+  }
 }
