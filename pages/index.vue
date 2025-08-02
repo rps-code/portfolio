@@ -1,9 +1,7 @@
 <script setup>
   const { data: projects } = await useAsyncData('prerender-projects', () => queryContent('project').only(['_path']).find())
 
-  if (process.server) {
-    useHead({ htmlAttrs: { 'data-index-page': true } }, { mode: 'server' })
-  }
+  if (import.meta.server) useHead({ htmlAttrs: { 'data-index-page': true } }, { mode: 'server' })
 
   useHead({
     title: 'Front End Developer',
