@@ -1,3 +1,37 @@
+<template>
+  <header
+    ref="header"
+    class="header"
+    data-scroll-section
+  >
+    <VHeaderBackground class="header__canvas" />
+
+    <div class="header__container">
+      <h1 class="header__container__title">
+        <span class="header__container__title__line">
+          <span class="header__container__title__line__content">Karl</span>
+        </span>
+        <span class="header__container__title__line header__container__title__line--pl">
+          <span class="header__container__title__line__content">Chelton</span>
+        </span>
+      </h1>
+
+      <p class="header__container__subtitle">
+        <span
+          v-for="(char, key) in subtitleText"
+          :key="key"
+          class="header__container__subtitle__char"
+          >{{ char }}</span
+        >
+      </p>
+    </div>
+
+    <div class="header__bottom-bar">
+      <VScrollDown />
+    </div>
+  </header>
+</template>
+
 <script setup>
   const { gsap } = useGsap()
   const emitter = useEmitter()
@@ -47,40 +81,6 @@
     })
   })
 </script>
-
-<template>
-  <header
-    ref="header"
-    class="header"
-    data-scroll-section
-  >
-    <VHeaderBackground class="header__canvas" />
-
-    <div class="header__container">
-      <h1 class="header__container__title">
-        <span class="header__container__title__line">
-          <span class="header__container__title__line__content">Karl</span>
-        </span>
-        <span class="header__container__title__line header__container__title__line--pl">
-          <span class="header__container__title__line__content">Chelton</span>
-        </span>
-      </h1>
-
-      <p class="header__container__subtitle">
-        <span
-          v-for="(char, key) in subtitleText"
-          :key="key"
-          class="header__container__subtitle__char"
-          >{{ char }}</span
-        >
-      </p>
-    </div>
-
-    <div class="header__bottom-bar">
-      <VScrollDown />
-    </div>
-  </header>
-</template>
 
 <style lang="scss">
   @use 'sass:color';

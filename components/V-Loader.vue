@@ -1,9 +1,9 @@
 <template>
-  <div class="bg-black w-full min-h-screen z-10">
-    <div
-      ref="loader"
-      class="loader"
-    >
+  <div
+    ref="loader"
+    class="bg-black w-full h-full z-10 absolute top-0 left-0"
+  >
+    <div class="loader">
       <div class="loader__dots"><span /><span /><span /></div>
     </div>
   </div>
