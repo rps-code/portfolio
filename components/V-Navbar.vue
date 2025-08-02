@@ -196,7 +196,7 @@
       @click="() => $smoothScroll.scrollTo(0)"
       @keypress.enter.space.prevent="() => $smoothScroll.scrollTo(0)"
     >
-      BK
+      KC
     </p>
 
     <ul

@@ -41,10 +41,10 @@
 </template>
 
 <script setup>
-  const props = defineProps({ error: { type: Object, required: true } })
+  defineProps({ error: { type: Object, required: true } })
 
   useHead({
-    title: () => props.error.statusCode
+    title: () => 'Oops! Something went wrong'
   })
 </script>
 

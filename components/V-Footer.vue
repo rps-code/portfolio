@@ -43,8 +43,8 @@
     >
       <div class="footer__content">
         <p class="footer__content__title">
-          <span class="footer__content__title__line">Bogdan</span>
-          <span class="footer__content__title__line footer__content__title__line--pl"> Kostyuk </span>
+          <span class="footer__content__title__line">Karl</span>
+          <span class="footer__content__title__line footer__content__title__line--pl">Chelton</span>
         </p>
         <ul class="footer__content__social-links">
           <li
@@ -61,7 +61,7 @@
           </li>
         </ul>
 
-        <p class="footer__content__copyright">Copyright ©{{ getCurrentYear() }} BK</p>
+        <p class="footer__content__copyright">Copyright ©{{ getCurrentYear() }} KC</p>
 
         <p class="footer__content__note">
           Made with

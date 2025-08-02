@@ -1,10 +1,11 @@
 /* TEAM */
-	Developer: Bogdan Kostyuk.
-	Telegram: https://t.me/bogdankostyuk.
-	Location: Ukraine, if you wanna know more, write me 😁.
+	Developer: Karl Chelton
+	Contact: https://www.linkedin.com/in/karl-chelton-ba067a174
+	Location: UK
 
 /* THANKS */
 	Patterns: taken from: https://products.ls.graphics/paaatterns
+	Forked from: Bogdan Kostyuk (https://t.me/bogdankostyuk)
 
 /* SITE */
 	Software: Nuxt.js, Gsap, Three.js, Scss, Locomotive Scroll

@@ -64,6 +64,7 @@ export default defineNuxtConfig({
       base: isDevelopment ? 'http://localhost:3000' : 'https://karlchelton.uk'
     }
   },
+  devtools: { enabled: isDevelopment },
   imports: {
     imports: [{ name: 'on', from: 'rad-event-listener' }]
   },
