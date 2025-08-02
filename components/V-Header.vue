@@ -3,7 +3,7 @@
   const emitter = useEmitter()
   const prefersReducedMotion = useReducedMotion()
 
-  const subtitleText = 'Front End Developer'
+  const subtitleText = 'Frontend Software Engineer'
 
   const header = ref(null)
 
@@ -195,7 +195,7 @@
 
           &__content {
             display: inline-block;
-
+            font-weight: bold;
             opacity: 0;
           }
 
@@ -208,7 +208,7 @@
 
       &__subtitle {
         font-size: var(--step--2);
-        font-weight: 100;
+        font-weight: 300;
         text-align: center;
 
         color: $base-color;

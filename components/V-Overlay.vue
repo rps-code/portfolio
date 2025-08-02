@@ -97,7 +97,7 @@
     <div class="page-overlay__slide">
       <div class="page-overlay__slide__text__wrapper">
         <p class="page-overlay__slide__text">
-          {{ $route.params.slug || 'index' }}
+          {{ $route.params.slug || 'Home' }}
         </p>
       </div>
 

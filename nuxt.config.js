@@ -73,7 +73,7 @@ export default defineNuxtConfig({
     '/_headers': { prerender: true }
   },
   sourcemap: isDevelopment,
-  css: ['normalize.css/normalize.css', 'locomotive-scroll/dist/locomotive-scroll.css', '~/assets/styles/fonts.css', '~/assets/styles/global.css'],
+  css: ['normalize.css/normalize.css', 'locomotive-scroll/dist/locomotive-scroll.css', '~/assets/styles/global.css'],
   build: {
     transpile: ['gsap', 'std-env']
   },

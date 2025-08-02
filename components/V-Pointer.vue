@@ -1,3 +1,22 @@
+<template>
+  <div
+    ref="pointer"
+    class="pointer"
+  >
+    <Transition
+      :css="false"
+      @enter="svgEnterAnimation"
+      @leave="svgLeaveAnimation"
+    >
+      <Component
+        :is="SVGComponents[pointerState]"
+        :key="pointerState"
+        class="pointer__svg"
+      />
+    </Transition>
+  </div>
+</template>
+
 <script setup>
   import LinkSVG from '~/assets/img/arrow-link.svg'
   import OuterLinkSVG from '~/assets/img/arrow-outer-link.svg'
@@ -72,6 +91,8 @@
     gsap.set(pointer.value, {
       x: window.innerWidth / 2,
       y: window.innerHeight / 2,
+      xPercent: -50,
+      yPercent: -50,
       autoAlpha: 0,
       scale: minifiedScale
     })
@@ -138,58 +159,29 @@
   })
 </script>
 
-<template>
-  <div
-    ref="pointer"
-    class="pointer"
-  >
-    <Transition
-      :css="false"
-      @enter="svgEnterAnimation"
-      @leave="svgLeaveAnimation"
-    >
-      <Component
-        :is="SVGComponents[pointerState]"
-        :key="pointerState"
-        class="pointer__svg"
-      />
-    </Transition>
-  </div>
-</template>
-
 <style lang="scss">
   .pointer {
     --size: min(calc(5rem + 1vw), 6rem);
-
     position: fixed;
     top: 0;
     left: 0;
     z-index: 9;
-
     width: var(--size);
     height: var(--size);
-
     opacity: 0;
     border-radius: 50%;
     background-color: #ffe6ed;
-
     mix-blend-mode: exclusion;
-
     pointer-events: none;
-    transform: translate(-50%, -50%);
-
     transition: opacity 0.2s ease;
 
     &__svg {
       --size: 30%;
-
       position: absolute;
       top: 50%;
       left: 50%;
-
       width: var(--size);
       height: var(--size);
-
       color: #030303;
     }
   }
