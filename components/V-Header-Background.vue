@@ -1,6 +1,9 @@
+<template>
+  <canvas ref="canvas" />
+</template>
+
 <script setup>
-  // prettier-ignore
-  import { Renderer, Transform, Camera, Plane, Program, Vec2, Color, Mesh } from 'ogl';
+  import { Renderer, Transform, Camera, Plane, Program, Vec2, Color, Mesh } from 'ogl'
 
   import fragmentShader from '~/assets/shaders/fragment.glsl'
   import vertexShader from '~/assets/shaders/vertex.glsl'
@@ -69,10 +72,12 @@
     scene = new Transform()
 
     const objectSize = 2
+
     const objectGeometry = new Plane(gl, {
       width: objectSize * aspect,
       height: objectSize
     })
+
     const objectMaterial = new Program(gl, {
       vertex: vertexShader,
       fragment: fragmentShader,
@@ -149,7 +154,3 @@
     createBackground()
   })
 </script>
-
-<template>
-  <canvas ref="canvas" />
-</template>

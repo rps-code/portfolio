@@ -3,8 +3,8 @@
     <div class="page-overlay__slide" />
     <div class="page-overlay__slide">
       <div class="page-overlay__slide__text__wrapper">
-        <p class="page-overlay__slide__text">
-          {{ $route.params.slug || 'Home' }}
+        <p class="page-overlay__slide__text capitalize">
+          {{ pageTitle }}
         </p>
       </div>
 
@@ -15,7 +15,7 @@
         }"
       >
         <svg
-          v-for="key in numberOfLoadingPoints"
+          v-for="key in 3"
           :key="key"
           width="17"
           height="16"
@@ -39,15 +39,27 @@
 </template>
 
 <script setup>
+  import { useRoute } from 'vue-router'
+
   const { $smoothScroll } = useNuxtApp()
   const { gsap, ScrollTrigger } = useGsap()
+  const route = useRoute()
   const emitter = useEmitter()
 
   const routeChanging = ref(false)
 
-  const numberOfLoadingPoints = 3
-
   defineExpose({ leavePageAnim, enterPageAnim })
+
+  const pageTitle = computed(() => {
+    const slug = route.params.slug
+
+    if (!slug && route.path === '/') return 'Home'
+
+    const segments = route.path.split('/').filter(Boolean)
+    const capitalized = segments.map(s => s.charAt(0).toUpperCase() + s.slice(1)).join(': ')
+
+    return capitalized
+  })
 
   function leavePageAnim(pageEl, done) {
     routeChanging.value = true

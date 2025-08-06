@@ -1,22 +1,22 @@
 ---
 description: 'This website, as you might already notice, is my portfolio. I am using it to showcase what I learn and what I can do. It was built with the cutting-edge framework Nuxt'
-source: 'https://github.com/logotip4ik/portfolio'
-live: 'https://bogdankostyuk.xyz'
+source: 'https://github.com/rps-code/portfolio'
+live: 'https://karlchelton.uk'
 tags:
   - Website
   - SEO
-  - Nuxt.js
-  - three.js
+  - Nuxt
   - gsap
   - SCSS
-image: '/img/portfolio-logo.webp'
-previewImage: '/img/portfolio.webp'
-createdAt: '2022-03-31T00:00:00+03:00'
+  - Forked
+image: '/img/portfolio-logo.png'
+previewImage: '/img/portfolio.png'
+createdAt: '2025-08-07T00:00:00+03:00'
 ---
 
 ::project-header
 :::project-title
-Portfolio Version 3
+Portfolio
 :::
 
 #source
@@ -29,20 +29,17 @@ Portfolio Version 3
 :::
 
 :::project-section{type="text"}
-This website, as you might already notice, is my portfolio. I am using it to showcase what I learn and what I can do. It was built with the cutting-edge framework [Nuxt3](https://v3.nuxtjs.org){no-lowercase size-inherit} (pretty cool phrase, isn't it :smile: ?). [Locomotive Scroll](https://locomotivemtl.github.io/locomotive-scroll/){no-lowercase size-inherit} was used for creating smooth scroll on desktop screen, it can also do so on mobile, but I found it wasn't performing well enough. Also, pretty obvious is GreenSock's tool - [GSAP](https://greensock.com/gsap/){no-lowercase size-inherit}. Last but not least important tool is [OGL](https://github.com/oframe/ogl){no-lowercase size-inherit}. This is like ThreeJS, but _a lot_ smaller in size and delivers pretty much every tool you need to build some 3d scene.
+This website is my personal portfolio where I showcase my skills and projects. It’s built with [Nuxt.js](https://nuxt.com) for a modern, fast framework setup. Styling combines [Tailwind CSS](https://tailwindcss.com) and [SCSS](https://sass-lang.com) for flexibility and clean design. Animations are powered by GSAP to keep interactions smooth and engaging.
 
-While building this website, I faced a lot of different and exceptional issues. One was breaking everything after moving one line of code up or down :sweat_smile:. Another was, how to reconcile Nuxt3, GSAP, and Locomotive Scroll in one package, so the route transition looks soft and native. But after trials and errors, something proper was created. Feel free to break everything :joy:.
+The code started as a fork from [logotip4ik](https://github.com/logotip4ik)’s project on GitHub but has been heavily modified to suit my needs and style. Along the way, I tackled plenty of challenges—like making everything work smoothly together and tweaking animations to feel just right. Feel free to poke around and break stuff—I’ve probably been there too.
 
-- [github](https://github.com/logotip4ik)
-- [twitter](https://twitter.com/BogdanKostyuk_)
-- [telegram](https://t.me/bogdankostyuk)
-- [linkedin](https://www.linkedin.com/in/bogdankostyuk)
-- [blog](https://blog.bogdankostyuk.xyz)
-- [email](mailto:contact@bogdankostyuk.xyz)
+- [Github](https://github.com/rps-code)
+- [LinkedIn](https://www.linkedin.com/in/karl-chelton-ba067a174)
+- [Email](mailto:contact@karlchelton.uk)
 
 <br />
 
-Would love to hear from you :wink:
+I would love to hear your thoughts on the site, so feel free to reach out via email or connect with me on LinkedIn. If you have any questions about the code or want to collaborate, I’m always open to new ideas and projects.
 :::
 
 :::project-section{type="project-next"}

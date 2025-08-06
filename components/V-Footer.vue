@@ -1,30 +1,3 @@
-<script setup>
-  import { socialLinks } from '~/lib/constants'
-
-  import ArrowUpSVG from '~/assets/img/arrow-up.svg'
-
-  const { gsap } = useGsap()
-
-  const footer = ref(null)
-  const footerWrapper = ref(null)
-
-  function getCurrentYear() {
-    return new Date().getFullYear()
-  }
-
-  onMounted(() => {
-    const resizeObserver = new ResizeObserver(() =>
-      gsap.set(footerWrapper.value, {
-        '--footer-wrapper-height': `${footer.value.clientHeight}px`
-      })
-    )
-
-    resizeObserver.observe(footer.value)
-
-    onBeforeUnmount(() => resizeObserver.disconnect())
-  })
-</script>
-
 <template>
   <div
     id="footerTarget"
@@ -60,20 +33,6 @@
             </VFooterLink>
           </li>
         </ul>
-
-        <p class="footer__content__copyright">Copyright ©{{ getCurrentYear() }} KC</p>
-
-        <p class="footer__content__note">
-          Made with
-          <img
-            title="love"
-            loading="lazy"
-            src="~/assets/img/heart.png"
-            width="60"
-            height="60"
-            alt="love"
-          />
-        </p>
       </div>
       <button
         v-hoverable.action
@@ -87,42 +46,57 @@
   </div>
 </template>
 
+<script setup>
+  import { socialLinks } from '~/lib/constants'
+
+  import ArrowUpSVG from '~/assets/img/arrow-up.svg'
+
+  const { gsap } = useGsap()
+
+  const footer = ref(null)
+  const footerWrapper = ref(null)
+
+  onMounted(() => {
+    const resizeObserver = new ResizeObserver(() =>
+      gsap.set(footerWrapper.value, {
+        '--footer-wrapper-height': `${footer.value.clientHeight}px`
+      })
+    )
+
+    resizeObserver.observe(footer.value)
+
+    onBeforeUnmount(() => resizeObserver.disconnect())
+  })
+</script>
+
 <style lang="scss">
   .footer {
     display: flex;
     justify-content: flex-start;
     align-items: stretch;
     flex-wrap: wrap;
-
     width: 100%;
-
     overflow: hidden;
 
     &__wrapper {
       position: relative;
       z-index: 1;
-
       width: 100%;
       height: var(--footer-wrapper-height);
-
       overflow: hidden;
     }
 
     &__content {
       flex-basis: 80%;
       flex-grow: 1;
-
       display: grid;
       grid-template-columns: repeat(2, 1fr);
       column-gap: 1.5rem;
       row-gap: 4rem;
       align-items: center;
-
       position: relative;
       width: 100%;
-
       color: var(--ff-color);
-
       padding: 3rem clamp(1rem, 4vw, 5rem) 2rem;
       background: var(--black-color);
       transition:
@@ -138,7 +112,6 @@
         font-size: var(--step-4);
         text-align: left;
         line-height: 1.125;
-
         margin: 0;
 
         &__line {
@@ -155,10 +128,8 @@
         flex-direction: column;
         justify-content: center;
         align-items: flex-end;
-
         margin: 0;
         padding: 0;
-
         list-style-type: none;
 
         &__link:not(:first-of-type) {
@@ -172,43 +143,33 @@
 
       &__copyright {
         align-self: end;
-
         font-size: var(--step-0);
         white-space: nowrap;
-
         opacity: 0.75;
-
         margin: 0;
       }
 
       &__note {
         align-self: end;
-
         font-size: var(--step-0);
         white-space: nowrap;
-
         opacity: 0.75;
-
         margin: 0;
 
         img {
           width: var(--step-0);
           height: auto;
-
           transform: translateY(10%);
         }
       }
 
       &::after {
         content: '';
-
         position: absolute;
         top: 0;
         right: 0;
         bottom: 0;
-
         width: 1px;
-
         opacity: 0.125;
         background-color: var(--ff-color);
 
@@ -220,7 +181,6 @@
       @media screen and (max-width: 685px) {
         grid-template-columns: 1fr;
         grid-template-rows: repeat(4, min-content);
-
         row-gap: 1.5rem;
 
         & > * {
@@ -233,17 +193,12 @@
     &__arrow {
       flex-basis: 20%;
       flex-grow: 1;
-
       display: flex;
       justify-content: center;
       align-items: center;
-
       text-align: center;
-
       min-width: 115px;
-
       padding: 0 0 1rem;
-
       border: none;
       background: var(--black-color);
 
@@ -252,11 +207,8 @@
 
         width: 40%;
         height: auto;
-
         color: var(--ff-color);
-
         opacity: 0.65;
-
         transition:
           opacity 400ms var(--ease-back),
           transform 400ms var(--ease-back);
@@ -267,14 +219,10 @@
         }
       }
 
-      &:is(:hover, :focus-visible) {
-        svg {
-          opacity: 1;
-
-          transform: translateY(-5%) scale(0.95);
-
-          transition-duration: 300ms;
-        }
+      &:is(:hover, :focus-visible) svg {
+        opacity: 1;
+        transform: translateY(-5%) scale(0.95);
+        transition-duration: 300ms;
       }
 
       @media (prefers-reduced-motion: reduce) {

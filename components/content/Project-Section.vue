@@ -1,3 +1,13 @@
+<template>
+  <section
+    v-bind="$attrs"
+    :class="['project-section', ...typeClasses]"
+    data-scroll-section
+  >
+    <ContentSlot :use="$slots.default" />
+  </section>
+</template>
+
 <script setup>
   const props = defineProps({
     type: {
@@ -15,23 +25,11 @@
   })
 </script>
 
-<template>
-  <section
-    v-bind="$attrs"
-    :class="['project-section', ...typeClasses]"
-    data-scroll-section
-  >
-    <ContentSlot :use="$slots.default" />
-  </section>
-</template>
-
 <style lang="scss">
   .project-section {
     font-size: var(--step-0);
     line-height: 1.7;
-
     width: 100%;
-
     padding: 0 clamp(1rem, 7vw, 10rem);
     margin-bottom: 2rem;
 
@@ -41,7 +39,6 @@
       align-items: flex-start;
       flex-wrap: wrap;
       gap: 1.25rem;
-
       padding: 0;
       list-style-type: none;
 
@@ -66,14 +63,12 @@
 
     &--fwidth {
       height: auto;
-
       padding: 0;
       margin-bottom: 10rem;
     }
 
     &--text {
-      max-width: 55ch;
-
+      max-width: 80ch;
       margin-bottom: 10rem;
     }
 
@@ -92,7 +87,6 @@
 
     &--project-next {
       height: auto;
-
       padding: 0;
       margin: 0;
     }
