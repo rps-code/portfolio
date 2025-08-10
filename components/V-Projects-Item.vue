@@ -1,53 +1,3 @@
-<script setup>
-  import SourceSVG from '~/assets/img/source.svg'
-
-  const { gsap } = useGsap()
-  const prefersReducedMotion = useReducedMotion()
-
-  const projectEl = ref(null)
-  const projectImage = ref(null)
-  const projectImageWrapper = ref(null)
-  const projectSource = ref(null)
-
-  const props = defineProps({
-    id: { type: Number, required: true, default: 0 },
-    project: { type: Object, required: true, default: () => ({}) }
-  })
-
-  const tagsString = computed(() => props.project.tags.reduce((str, val) => `${str}, ${val}`))
-
-  onMounted(() => {
-    const imageResizeObserver = new ResizeObserver(() => {
-      if (!props.project.source) return
-
-      gsap.to(projectSource.value.$el, {
-        '--image-height': `${projectImageWrapper.value.clientHeight}px`
-      })
-    })
-
-    imageResizeObserver.observe(projectImage.value)
-
-    const revealAnim = gsap.timeline({
-      scrollTrigger: {
-        trigger: projectEl.value,
-        start: 'top bottom-=10%',
-        once: true
-      }
-    })
-
-    if (!prefersReducedMotion.value) revealAnim.fromTo(projectEl.value.children[0], { y: 100 }, { y: 0, ease: 'expo.out', duration: 1.25 })
-
-    if (prefersReducedMotion.value) revealAnim.fromTo(projectImage.value, { opacity: 0.025 }, { opacity: 1 }, 0)
-    else revealAnim.fromTo(projectImage.value, { scale: 0.925, transformOrigin: 'bottom center', opacity: 0.025 }, { scale: 1, opacity: 1 }, 0)
-
-    onBeforeUnmount(() => {
-      revealAnim.scrollTrigger?.kill()
-
-      imageResizeObserver.disconnect()
-    })
-  })
-</script>
-
 <template>
   <li
     ref="projectEl"
@@ -91,8 +41,74 @@
     >
       <SourceSVG />
     </NuxtLink>
+    <NuxtLink
+      v-if="project.live"
+      ref="projectLive"
+      v-hoverable.outer-link
+      :href="project.live"
+      target="_blank"
+      class="project__source"
+    >
+      <LiveSVG />
+    </NuxtLink>
   </li>
 </template>
+
+<script setup>
+  import SourceSVG from '~/assets/img/source.svg'
+  import LiveSVG from '~/assets/img/live.svg'
+
+  const { gsap } = useGsap()
+  const prefersReducedMotion = useReducedMotion()
+
+  const projectEl = ref(null)
+  const projectImage = ref(null)
+  const projectImageWrapper = ref(null)
+  const projectSource = ref(null)
+  const projectLive = ref(null)
+
+  const props = defineProps({
+    id: { type: Number, required: true },
+    project: { type: Object, required: true }
+  })
+
+  const tagsString = computed(() => props.project.tags.reduce((str, val) => `${str}, ${val}`))
+
+  onMounted(() => {
+    const imageResizeObserver = new ResizeObserver(() => {
+      if (props.project.source)
+        gsap.to(projectSource.value.$el, {
+          '--image-height': `${projectImageWrapper.value.clientHeight}px`
+        })
+
+      if (props.project.live)
+        gsap.to(projectLive.value.$el, {
+          '--image-height': `${projectImageWrapper.value.clientHeight}px`
+        })
+    })
+
+    imageResizeObserver.observe(projectImage.value)
+
+    const revealAnim = gsap.timeline({
+      scrollTrigger: {
+        trigger: projectEl.value,
+        start: 'top bottom-=10%',
+        once: true
+      }
+    })
+
+    if (!prefersReducedMotion.value) revealAnim.fromTo(projectEl.value.children[0], { y: 100 }, { y: 0, ease: 'expo.out', duration: 1.25 })
+
+    if (prefersReducedMotion.value) revealAnim.fromTo(projectImage.value, { opacity: 0.025 }, { opacity: 1 }, 0)
+    else revealAnim.fromTo(projectImage.value, { scale: 0.925, transformOrigin: 'bottom center', opacity: 0.025 }, { scale: 1, opacity: 1 }, 0)
+
+    onBeforeUnmount(() => {
+      revealAnim.scrollTrigger?.kill()
+
+      imageResizeObserver.disconnect()
+    })
+  })
+</script>
 
 <style lang="scss" scoped>
   @use 'sass:color';

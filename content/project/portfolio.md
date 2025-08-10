@@ -6,7 +6,7 @@ tags:
   - Website
   - SEO
   - Nuxt
-  - gsap
+  - GSAP
   - SCSS
   - Forked
 image: '/img/portfolio-logo.png'
