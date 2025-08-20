@@ -49,6 +49,7 @@
 <script setup>
   import { socialLinks } from '~/lib/constants'
   import { ScrollToPlugin } from 'gsap/ScrollToPlugin'
+  import { onMounted } from 'vue'
 
   import ArrowUpSVG from '~/assets/img/arrow-up.svg'
 
@@ -56,7 +57,11 @@
 
   gsap.registerPlugin(ScrollToPlugin)
 
-  const isSafari = /^((?!chrome|android).)*safari/i.test(navigator.userAgent)
+  let isSafari = false
+
+  onMounted(() => {
+    isSafari = /^((?!chrome|android).)*safari/i.test(navigator.userAgent) ?? false
+  })
 
   const scrollToTop = () => {
     gsap.to(window, {
