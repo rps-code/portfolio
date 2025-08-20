@@ -7,7 +7,18 @@
     class="projects"
     data-scroll-section
   >
-    <VH2 class="projects__title">Projects</VH2>
+    <VH2 class="projects__title !mb-0">Projects</VH2>
+    <VH2 class="text-center !mt-6 flex items-center justify-center !text-xl text-gray-500">
+      with more on my
+      <NuxtLink
+        v-hoverable
+        href="https://github.com/rps-code"
+        target="_blank"
+        class="font-bold ml-1.5 text-white"
+      >
+        GitHub
+      </NuxtLink>
+    </VH2>
 
     <ul class="projects__list">
       <VProjectsItem

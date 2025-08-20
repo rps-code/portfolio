@@ -9,9 +9,9 @@ tags:
   - Laravel
   - Real-time
   - Dashboard
-image: '/img/bwcc-stats-logo.png'
-previewImage: '/img/bwcc-stats-dashboard.png'
-createdAt: '2025-08-10T00:00:00+03:00'
+image: '/img/bwcc-stats-main.png'
+previewImage: '/img/bwcc-stats-side.png'
+createdAt: '2023-08-10T00:00:00+03:00'
 ---
 
 ::project-header
@@ -37,10 +37,19 @@ Key Features:
 - **Interactive Dashboards**: Offers intuitive visualizations for users to explore various metrics.
 - **Scalable Architecture**: Built to accommodate growing data sets and user demands.
 
-This project showcases advanced data handling capabilities, making it an essential tool for HLL enthusiasts and analysts.
+This project is now inactive, but the code remains available for reference and potential future development.
 
 - [GitHub](https://github.com/rps-code/bwcc-stats)
-  :::
+
+:::
+
+:::project-section
+::::project-image{src="/img/bwcc-stats-one.png" alt="Screenshots of BWCC Stats application showing various sections and features"}
+:::
+
+:::project-section
+::::project-image{src="/img/bwcc-stats-two.png" alt="Screenshots of BWCC Stats application showing various sections and features"}
+:::
 
 :::project-section{type="project-next"}
 ::::project-next
