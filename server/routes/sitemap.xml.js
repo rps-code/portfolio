@@ -7,7 +7,7 @@ export default defineEventHandler(async event => {
   // Fetching all the documents
   const docs = await serverQueryContent(event).find()
 
-  const sitemap = new SitemapStream({ hostname: 'https://karlchelton.uk' })
+  const sitemap = new SitemapStream({ hostname: 'https://karlchelton.com' })
 
   sitemap.write({ url: '/', ...defaults })
 

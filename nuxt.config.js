@@ -15,7 +15,7 @@ export default defineNuxtConfig({
         { property: 'name', name: 'name', content: 'Karl Chelton' },
         { charset: 'utf-8' },
         { 'http-equiv': 'X-UA-Compatible', content: 'IE=edge' },
-        { 'http-equiv': 'Reply-to', content: 'hello@karlchelton.uk' },
+        { 'http-equiv': 'Reply-to', content: 'hello@karlchelton.com' },
         { name: 'viewport', content: 'width=device-width, initial-scale=1' },
         { name: 'format-detection', content: 'telephone=no' },
         { name: 'robots', content: 'all' },
@@ -61,7 +61,7 @@ export default defineNuxtConfig({
   },
   runtimeConfig: {
     public: {
-      base: isDevelopment ? 'http://localhost:3000' : 'https://karlchelton.uk'
+      base: isDevelopment ? 'http://localhost:3000' : 'https://karlchelton.com'
     }
   },
   devtools: { enabled: isDevelopment },

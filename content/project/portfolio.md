@@ -1,7 +1,7 @@
 ---
 description: 'This website, as you might already notice, is my portfolio. I am using it to showcase what I learn and what I can do. It was built with the cutting-edge framework Nuxt'
 source: 'https://github.com/rps-code/portfolio'
-live: 'https://karlchelton.uk'
+live: 'https://karlchelton.com'
 tags:
   - Website
   - SEO
@@ -35,7 +35,7 @@ The code started as a fork from [logotip4ik](https://github.com/logotip4ik)’s 
 
 - [Github](https://github.com/rps-code)
 - [LinkedIn](https://www.linkedin.com/in/karl-chelton-ba067a174)
-- [Email](mailto:contact@karlchelton.uk)
+- [Email](mailto:contact@karlchelton.com)
 
 <br />
 
