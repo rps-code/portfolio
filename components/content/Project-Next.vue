@@ -2,7 +2,7 @@
   <NuxtLink
     v-hoverable.link
     :href="next._path"
-    class="project-next flex flex-col"
+    class="project-next flex flex-col text-center"
   >
     <img
       :src="next.previewImage"
@@ -13,8 +13,8 @@
       data-scroll-position="bottom"
     />
 
-    <span class="text-2xl font-light text-gray-400">Check out another project</span>
-    <div class="bg-gray-400 w-12 h-0.5 my-2" />
+    <span class="text-2xl font-light text-gray-300">Check out another project</span>
+    <div class="bg-gray-500 w-12 h-0.5 my-2" />
     {{ next.title }}
   </NuxtLink>
 </template>
@@ -53,6 +53,10 @@
     margin-top: 10rem;
     overflow: hidden;
     cursor: none;
+
+    @media (max-width: 768px) {
+      margin-top: 2rem !important;
+    }
 
     &__image {
       display: block;

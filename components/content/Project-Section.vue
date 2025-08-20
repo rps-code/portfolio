@@ -33,6 +33,10 @@
     padding: 0 clamp(1rem, 7vw, 10rem);
     margin-bottom: 2rem;
 
+    @media (max-width: 768px) {
+      margin-bottom: 2rem !important;
+    }
+
     ul {
       display: flex;
       justify-content: flex-start;
@@ -89,6 +93,10 @@
       height: auto;
       padding: 0;
       margin: 0;
+
+      @media (max-width: 768px) {
+        margin-bottom: 0 !important;
+      }
     }
   }
 </style>
