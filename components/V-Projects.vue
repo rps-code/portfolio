@@ -8,7 +8,7 @@
     data-scroll-section
   >
     <VH2 class="projects__title !mb-0">Personal Projects</VH2>
-    <VH2 class="text-center !mt-6 flex items-center justify-center !text-xl text-gray-500">
+    <VH2 class="text-center !mt-2 !md:mt-6 flex items-center justify-center !text-xl text-gray-500">
       with more on my
       <NuxtLink
         v-hoverable
@@ -20,7 +20,7 @@
       </NuxtLink>
     </VH2>
 
-    <ul class="projects__list">
+    <ul class="projects__list pt-[3rem] md:pt-0">
       <VProjectsItem
         v-for="(project, key) in projects"
         :id="key"

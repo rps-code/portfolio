@@ -175,22 +175,17 @@
 
       mix-blend-mode: difference;
       cursor: default;
-
       transition: color 400ms;
 
       &__title {
         font-weight: 200;
-
         color: $base-color;
-
         margin: 0;
         margin-bottom: 0.75rem;
 
         &__line {
           display: block;
-
           line-height: 1.25;
-
           overflow: hidden;
 
           &__content {
@@ -218,6 +213,10 @@
 
         &__char {
           opacity: 0;
+        }
+
+        @media (max-width: 767px) {
+          font-size: clamp(1.2rem, calc(0.9rem + 2vw), 1.8rem);
         }
       }
     }

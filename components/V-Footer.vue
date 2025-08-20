@@ -119,6 +119,10 @@
 
           &--pl {
             padding-left: var(--step-4);
+
+            @media (max-width: 768px) {
+              padding-left: 0;
+            }
           }
         }
       }

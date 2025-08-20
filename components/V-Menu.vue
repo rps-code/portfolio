@@ -1,3 +1,70 @@
+<template>
+  <div
+    ref="menu"
+    class="menu"
+    role="menu"
+  >
+    <div
+      :ref="el => (menuBackItem[0] = el)"
+      class="menu__back-item"
+      aria-hidden="true"
+    />
+    <div
+      v-for="(link, key) in navigationalLinks"
+      :key="key"
+      :ref="el => (menuBackItem[key + 1] = el)"
+      class="menu__back-item"
+      role="menuitem"
+    >
+      <div
+        role="button"
+        :class="{
+          'menu__back-item__content': true,
+          'menu__back-item__content--active': key === currentSection
+        }"
+        tabindex="0"
+        :aria-label="`scroll to ${link.label}`"
+        @click="link.action"
+        @keydown.enter="link.action"
+        @keydown.space.prevent="link.action"
+      >
+        <p
+          :ref="el => (menuBackItemContentTitle[key] = el)"
+          class="menu__back-item__content__title"
+        >
+          <span>{{ link.label }}</span>
+        </p>
+      </div>
+      <span
+        :ref="el => (menuBackItemLine[key] = el)"
+        class="menu__back-item__line"
+      />
+    </div>
+    <div
+      :ref="el => (menuBackItem[5] = el)"
+      class="menu__back-item"
+    >
+      <div class="menu__back-item__content menu__back-item__content--no-anim">
+        <ul class="menu__back-item__content__links">
+          <li
+            v-for="(link, key) in socialLinks"
+            :key="key"
+            :ref="el => (menuBackItemContentLinksItem[key] = el)"
+            class="menu__back-item__content__links__item"
+          >
+            <NuxtLink
+              :href="link.href"
+              target="_blank"
+            >
+              {{ link.label }}
+            </NuxtLink>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</template>
+
 <script setup>
   import { socialLinks } from '~/lib/constants'
 
@@ -9,32 +76,67 @@
   const isShowingMenu = useMenuToggle()
   const prefersReducedMotion = useReducedMotion()
 
+  // Safari-compatible scroll function
+  const safariCompatibleScroll = target => {
+    // First try the smooth scroll plugin
+    if ($smoothScroll && typeof $smoothScroll.scrollTo === 'function') {
+      try {
+        $smoothScroll.scrollTo(target)
+        return
+      } catch (error) {
+        console.warn('Smooth scroll failed, falling back to native scroll:', error)
+      }
+    }
+
+    // Fallback for Safari and other browsers
+    if (typeof target === 'number') {
+      // Scroll to position
+      window.scrollTo({
+        top: target,
+        behavior: 'smooth'
+      })
+    } else if (typeof target === 'string') {
+      // Scroll to element
+      const element = document.querySelector(target)
+      if (element) {
+        // Get the element's position
+        const elementPosition = element.getBoundingClientRect().top + window.pageYOffset
+        const offsetPosition = elementPosition - 80 // Add some offset if needed
+
+        window.scrollTo({
+          top: offsetPosition,
+          behavior: 'smooth'
+        })
+      }
+    }
+  }
+
   const navigationalLinks = [
     {
       label: 'Home',
       action: () => {
-        $smoothScroll.scrollTo(0)
+        safariCompatibleScroll(0)
         isShowingMenu.value = false
       }
     },
     {
       label: 'Projects',
       action: () => {
-        $smoothScroll.scrollTo('.projects')
+        safariCompatibleScroll('.projects')
         isShowingMenu.value = false
       }
     },
     {
       label: 'About',
       action: () => {
-        $smoothScroll.scrollTo('.about-me')
+        safariCompatibleScroll('.about-me')
         isShowingMenu.value = false
       }
     },
     {
       label: 'Contact',
       action: () => {
-        $smoothScroll.scrollTo('.contact')
+        safariCompatibleScroll('.contact')
         isShowingMenu.value = false
       }
     }
@@ -109,79 +211,42 @@
 
   watch(isShowingMenu, bool => {
     if (bool) {
-      $smoothScroll.disable()
+      // Safari-compatible scroll disabling
+      if ($smoothScroll && typeof $smoothScroll.disable === 'function') {
+        $smoothScroll.disable()
+      } else {
+        // Fallback: prevent scrolling by adding CSS
+        document.body.style.overflow = 'hidden'
+        document.body.style.position = 'fixed'
+        document.body.style.width = '100%'
+      }
       showMenu()
     } else {
-      $smoothScroll.enable()
+      // Safari-compatible scroll enabling
+      if ($smoothScroll && typeof $smoothScroll.enable === 'function') {
+        $smoothScroll.enable()
+      } else {
+        // Fallback: restore scrolling
+        document.body.style.overflow = ''
+        document.body.style.position = ''
+        document.body.style.width = ''
+      }
       hideMenu()
     }
   })
-</script>
 
-<template>
-  <div
-    ref="menu"
-    class="menu"
-    role="menu"
-  >
-    <div
-      :ref="el => (menuBackItem[0] = el)"
-      class="menu__back-item"
-      aria-hidden="true"
-    ></div>
-    <div
-      v-for="(link, key) in navigationalLinks"
-      :key="key"
-      :ref="el => (menuBackItem[key + 1] = el)"
-      class="menu__back-item"
-      role="menuitem"
-    >
-      <div
-        role="button"
-        :class="{
-          'menu__back-item__content': true,
-          'menu__back-item__content--active': key === currentSection
-        }"
-        tabindex="0"
-        :aria-label="`scroll to ${link.label}`"
-        @click="link.action"
-      >
-        <p
-          :ref="el => (menuBackItemContentTitle[key] = el)"
-          class="menu__back-item__content__title"
-        >
-          <span>{{ link.label }}</span>
-        </p>
-      </div>
-      <span
-        :ref="el => (menuBackItemLine[key] = el)"
-        class="menu__back-item__line"
-      ></span>
-    </div>
-    <div
-      :ref="el => (menuBackItem[5] = el)"
-      class="menu__back-item"
-    >
-      <div class="menu__back-item__content menu__back-item__content--no-anim">
-        <ul class="menu__back-item__content__links">
-          <li
-            v-for="(link, key) in socialLinks"
-            :key="key"
-            :ref="el => (menuBackItemContentLinksItem[key] = el)"
-            class="menu__back-item__content__links__item"
-          >
-            <NuxtLink
-              :href="link.href"
-              target="_blank"
-            >
-              {{ link.label }}
-            </NuxtLink>
-          </li>
-        </ul>
-      </div>
-    </div>
-  </div>
-</template>
+  // Cleanup on unmount
+  onUnmounted(() => {
+    // Ensure scrolling is restored if component unmounts while menu is open
+    if ($smoothScroll && typeof $smoothScroll.enable === 'function') {
+      $smoothScroll.enable()
+    } else {
+      document.body.style.overflow = ''
+      document.body.style.position = ''
+      document.body.style.width = ''
+    }
+  })
+</script>
 
 <style lang="scss">
   @use 'sass:color';
@@ -201,6 +266,10 @@
     opacity: 0;
     visibility: hidden;
     pointer-events: all;
+
+    /* Safari-specific fixes */
+    -webkit-overflow-scrolling: touch;
+    transform: translate3d(0, 0, 0); /* Force hardware acceleration */
 
     &__back-item {
       $ITEMS_COUNT: 6;
@@ -230,6 +299,9 @@
         height: 100%;
 
         cursor: pointer;
+        /* Improve touch targets for mobile Safari */
+        -webkit-tap-highlight-color: transparent;
+        touch-action: manipulation;
 
         &__title {
           position: relative;
@@ -288,6 +360,9 @@
             text-decoration: none;
 
             transition: color 100ms;
+            /* Improve touch targets for mobile Safari */
+            -webkit-tap-highlight-color: transparent;
+            touch-action: manipulation;
 
             &:is(:hover, :focus) {
               color: #ffe6ed;
@@ -343,6 +418,22 @@
         height: 1px;
         background-color: color.adjust(#fff, $lightness: -75%);
       }
+    }
+  }
+
+  /* Additional Safari-specific CSS fixes */
+  @supports (-webkit-overflow-scrolling: touch) {
+    .menu {
+      /* Ensure proper layering in Safari */
+      -webkit-transform: translate3d(0, 0, 0);
+    }
+  }
+
+  /* Fix for Safari viewport height issues */
+  @media screen and (max-width: 768px) {
+    .menu {
+      height: 100vh;
+      height: -webkit-fill-available;
     }
   }
 </style>

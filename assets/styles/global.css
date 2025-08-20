@@ -8,7 +8,7 @@
   --step-2: clamp(1.44rem, calc(0.93rem + 2.53vw), 2.73rem);
   --step-3: clamp(1.73rem, calc(1.07rem + 3.3vw), 3.42rem);
   --step-4: clamp(2.07rem, calc(1.22rem + 4.29vw), 4.27rem);
-  --step-5: clamp(2.49rem, calc(1.37rem + 5.57vw), 5.34rem);
+  --step-5: clamp(3rem, calc(1.8rem + 6vw), 6rem);
   --surface-color: #030303;
   --ff-color: #f7f7f7;
   --primary-color: #ffe6ed;

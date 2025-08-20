@@ -173,6 +173,11 @@
         @media (prefers-color-scheme: light) {
           color: #424242;
         }
+
+        @media (max-width: 768px) {
+          font-weight: 300;
+          margin-bottom: 0.5rem;
+        }
       }
 
       &__tags {
@@ -181,6 +186,10 @@
 
         @media (prefers-color-scheme: light) {
           color: #4b4b4b;
+        }
+
+        @media (max-width: 768px) {
+          font-weight: 500;
         }
       }
     }
