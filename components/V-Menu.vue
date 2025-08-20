@@ -76,37 +76,25 @@
   const isShowingMenu = useMenuToggle()
   const prefersReducedMotion = useReducedMotion()
 
-  // Safari-compatible scroll function
-  const safariCompatibleScroll = target => {
-    // First try the smooth scroll plugin
-    if ($smoothScroll && typeof $smoothScroll.scrollTo === 'function') {
-      try {
-        $smoothScroll.scrollTo(target)
-        return
-      } catch (error) {
-        console.warn('Smooth scroll failed, falling back to native scroll:', error)
-      }
-    }
+  // Simple, reliable scroll function
+  const scrollToTarget = target => {
+    console.log('Attempting to scroll to:', target)
 
-    // Fallback for Safari and other browsers
     if (typeof target === 'number') {
-      // Scroll to position
-      window.scrollTo({
-        top: target,
-        behavior: 'smooth'
-      })
+      // Scroll to position (top of page)
+      window.scrollTo(0, target)
+      console.log('Scrolled to position:', target)
     } else if (typeof target === 'string') {
       // Scroll to element
       const element = document.querySelector(target)
-      if (element) {
-        // Get the element's position
-        const elementPosition = element.getBoundingClientRect().top + window.pageYOffset
-        const offsetPosition = elementPosition - 80 // Add some offset if needed
+      console.log('Found element:', element)
 
-        window.scrollTo({
-          top: offsetPosition,
-          behavior: 'smooth'
-        })
+      if (element) {
+        // Simple direct scroll - no smooth behavior
+        element.scrollIntoView()
+        console.log('Scrolled to element:', target)
+      } else {
+        console.warn('Element not found:', target)
       }
     }
   }
@@ -115,28 +103,28 @@
     {
       label: 'Home',
       action: () => {
-        safariCompatibleScroll(0)
+        scrollToTarget(0)
         isShowingMenu.value = false
       }
     },
     {
       label: 'Projects',
       action: () => {
-        safariCompatibleScroll('.projects')
+        scrollToTarget('.projects')
         isShowingMenu.value = false
       }
     },
     {
       label: 'About',
       action: () => {
-        safariCompatibleScroll('.about-me')
+        scrollToTarget('.about-me')
         isShowingMenu.value = false
       }
     },
     {
       label: 'Contact',
       action: () => {
-        safariCompatibleScroll('.contact')
+        scrollToTarget('.contact')
         isShowingMenu.value = false
       }
     }
@@ -211,26 +199,12 @@
 
   watch(isShowingMenu, bool => {
     if (bool) {
-      // Safari-compatible scroll disabling
-      if ($smoothScroll && typeof $smoothScroll.disable === 'function') {
-        $smoothScroll.disable()
-      } else {
-        // Fallback: prevent scrolling by adding CSS
-        document.body.style.overflow = 'hidden'
-        document.body.style.position = 'fixed'
-        document.body.style.width = '100%'
-      }
+      // Simple body scroll prevention
+      document.body.style.overflow = 'hidden'
       showMenu()
     } else {
-      // Safari-compatible scroll enabling
-      if ($smoothScroll && typeof $smoothScroll.enable === 'function') {
-        $smoothScroll.enable()
-      } else {
-        // Fallback: restore scrolling
-        document.body.style.overflow = ''
-        document.body.style.position = ''
-        document.body.style.width = ''
-      }
+      // Restore body scrolling
+      document.body.style.overflow = ''
       hideMenu()
     }
   })
@@ -238,13 +212,7 @@
   // Cleanup on unmount
   onUnmounted(() => {
     // Ensure scrolling is restored if component unmounts while menu is open
-    if ($smoothScroll && typeof $smoothScroll.enable === 'function') {
-      $smoothScroll.enable()
-    } else {
-      document.body.style.overflow = ''
-      document.body.style.position = ''
-      document.body.style.width = ''
-    }
+    document.body.style.overflow = ''
   })
 </script>
 
