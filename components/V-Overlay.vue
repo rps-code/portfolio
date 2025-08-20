@@ -58,7 +58,7 @@
     const segments = route.path.split('/').filter(Boolean)
     const capitalized = segments.map(s => s.charAt(0).toUpperCase() + s.slice(1)).join(': ')
 
-    return capitalized
+    return capitalized.replaceAll('-', ' ')
   })
 
   function leavePageAnim(pageEl, done) {
