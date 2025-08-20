@@ -48,46 +48,28 @@
 
 <script setup>
   import { socialLinks } from '~/lib/constants'
+  import { ScrollToPlugin } from 'gsap/ScrollToPlugin'
 
   import ArrowUpSVG from '~/assets/img/arrow-up.svg'
 
   const { gsap } = useGsap()
 
-  const footer = ref(null)
-  const footerWrapper = ref(null)
+  gsap.registerPlugin(ScrollToPlugin)
 
-  // Force instant scroll to top - Safari compatible
   const scrollToTop = () => {
-    console.log('Scrolling to top')
-
-    // First, ensure any smooth scroll CSS is overridden
-    const originalScrollBehavior = document.documentElement.style.scrollBehavior
-    document.documentElement.style.scrollBehavior = 'auto'
-
-    // Force instant scroll to top
-    window.scrollTo({
-      top: 0,
-      left: 0,
-      behavior: 'auto'
+    gsap.to(window, {
+      scrollTo: { y: 0 },
+      duration: 0, // instant
+      overwrite: 'auto',
+      onComplete: () => {
+        const original = document.documentElement.style.scrollBehavior
+        document.documentElement.style.scrollBehavior = 'auto'
+        setTimeout(() => {
+          document.documentElement.style.scrollBehavior = original
+        }, 50)
+      }
     })
-
-    // Restore original scroll behavior after a brief delay
-    setTimeout(() => {
-      document.documentElement.style.scrollBehavior = originalScrollBehavior
-    }, 100)
   }
-
-  onMounted(() => {
-    const resizeObserver = new ResizeObserver(() =>
-      gsap.set(footerWrapper.value, {
-        '--footer-wrapper-height': `${footer.value.clientHeight}px`
-      })
-    )
-
-    resizeObserver.observe(footer.value)
-
-    onBeforeUnmount(() => resizeObserver.disconnect())
-  })
 </script>
 
 <style lang="scss">
