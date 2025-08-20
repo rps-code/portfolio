@@ -56,10 +56,12 @@
 
   gsap.registerPlugin(ScrollToPlugin)
 
+  const isSafari = /^((?!chrome|android).)*safari/i.test(navigator.userAgent)
+
   const scrollToTop = () => {
     gsap.to(window, {
       scrollTo: { y: 0 },
-      duration: 0, // instant
+      duration: isSafari ? 0 : 0.5,
       overwrite: 'auto',
       onComplete: () => {
         const original = document.documentElement.style.scrollBehavior
