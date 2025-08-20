@@ -38,7 +38,7 @@
         v-hoverable.action
         class="footer__arrow"
         aria-label="to top"
-        @click="() => $smoothScroll.scrollTo(0)"
+        @click="scrollToTop"
       >
         <ArrowUpSVG />
       </button>
@@ -55,6 +55,27 @@
 
   const footer = ref(null)
   const footerWrapper = ref(null)
+
+  // Force instant scroll to top - Safari compatible
+  const scrollToTop = () => {
+    console.log('Scrolling to top')
+
+    // First, ensure any smooth scroll CSS is overridden
+    const originalScrollBehavior = document.documentElement.style.scrollBehavior
+    document.documentElement.style.scrollBehavior = 'auto'
+
+    // Force instant scroll to top
+    window.scrollTo({
+      top: 0,
+      left: 0,
+      behavior: 'auto'
+    })
+
+    // Restore original scroll behavior after a brief delay
+    setTimeout(() => {
+      document.documentElement.style.scrollBehavior = originalScrollBehavior
+    }, 100)
+  }
 
   onMounted(() => {
     const resizeObserver = new ResizeObserver(() =>

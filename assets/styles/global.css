@@ -47,6 +47,12 @@ body {
   scrollbar-width: none;
 }
 
+@supports (-webkit-overflow-scrolling: touch) {
+  html {
+    scroll-behavior: auto !important;
+  }
+}
+
 a,
 button {
   touch-action: manipulation;
