@@ -68,7 +68,6 @@
 <script setup>
   import { socialLinks } from '~/lib/constants'
 
-  const { $smoothScroll } = useNuxtApp()
   const isDarkMode = useDarkMode()
 
   const { gsap } = useGsap()
@@ -76,13 +75,21 @@
   const isShowingMenu = useMenuToggle()
   const prefersReducedMotion = useReducedMotion()
 
-  // Simple, reliable scroll function
+  // Force instant scrolling - no smooth behavior
   const scrollToTarget = target => {
     console.log('Attempting to scroll to:', target)
 
+    // First, ensure any smooth scroll CSS is overridden
+    const originalScrollBehavior = document.documentElement.style.scrollBehavior
+    document.documentElement.style.scrollBehavior = 'auto'
+
     if (typeof target === 'number') {
-      // Scroll to position (top of page)
-      window.scrollTo(0, target)
+      // Scroll to position (top of page) - force instant
+      window.scrollTo({
+        top: target,
+        left: 0,
+        behavior: 'auto'
+      })
       console.log('Scrolled to position:', target)
     } else if (typeof target === 'string') {
       // Scroll to element
@@ -90,13 +97,20 @@
       console.log('Found element:', element)
 
       if (element) {
-        // Simple direct scroll - no smooth behavior
-        element.scrollIntoView()
+        // Force instant scroll with explicit behavior
+        element.scrollIntoView({
+          behavior: 'auto',
+          block: 'start',
+          inline: 'nearest'
+        })
         console.log('Scrolled to element:', target)
-      } else {
-        console.warn('Element not found:', target)
       }
     }
+
+    // Restore original scroll behavior after a brief delay
+    setTimeout(() => {
+      document.documentElement.style.scrollBehavior = originalScrollBehavior
+    }, 100)
   }
 
   const navigationalLinks = [
@@ -124,7 +138,7 @@
     {
       label: 'Contact',
       action: () => {
-        scrollToTarget('.contact')
+        window.location.href = 'mailto:karlchelton@proton.me'
         isShowingMenu.value = false
       }
     }
@@ -226,11 +240,9 @@
     top: 0;
     left: 0;
     z-index: 6;
-
     width: 100%;
     height: 100%;
     height: var(--100vh);
-
     opacity: 0;
     visibility: hidden;
     pointer-events: all;
@@ -247,9 +259,7 @@
       position: absolute;
       left: 0;
       right: 0;
-
       height: calc(var(--100vh) / #{$ITEMS_COUNT});
-
       padding: 1rem var(--x-padding);
       background-color: var(--surface-color);
 
@@ -263,21 +273,16 @@
         display: flex;
         justify-content: flex-start;
         align-items: flex-end;
-
         height: 100%;
-
         cursor: pointer;
-        /* Improve touch targets for mobile Safari */
         -webkit-tap-highlight-color: transparent;
         touch-action: manipulation;
 
         &__title {
           position: relative;
-
           color: color.adjust(#fff, $lightness: -50%);
           font-size: var(--step-3);
           line-height: 1;
-
           width: 100%;
           margin: 0;
 
@@ -296,13 +301,11 @@
             position: absolute;
             top: 50%;
             right: 0;
-
             width: var(--size);
             height: var(--size);
             border-radius: 50%;
             background-color: #ffe6ed;
             opacity: 0;
-
             transform: translate(-50%, -50%);
             transition: opacity 200ms ease;
 
@@ -317,7 +320,6 @@
           justify-content: flex-start;
           align-items: center;
           gap: var(--step-1);
-
           list-style-type: none;
           padding-inline-start: 0;
 
@@ -326,9 +328,7 @@
             color: color.adjust(#fff, $lightness: -50%);
             text-transform: uppercase;
             text-decoration: none;
-
             transition: color 100ms;
-            /* Improve touch targets for mobile Safari */
             -webkit-tap-highlight-color: transparent;
             touch-action: manipulation;
 
@@ -377,12 +377,10 @@
 
       &__line {
         display: inline-block;
-
         position: absolute;
         bottom: 1%;
         left: var(--x-padding);
         right: var(--x-padding);
-
         height: 1px;
         background-color: color.adjust(#fff, $lightness: -75%);
       }
@@ -394,6 +392,10 @@
     .menu {
       /* Ensure proper layering in Safari */
       -webkit-transform: translate3d(0, 0, 0);
+    }
+
+    html {
+      scroll-behavior: auto !important;
     }
   }
 
