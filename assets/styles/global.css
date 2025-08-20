@@ -52,23 +52,23 @@ button {
 }
 
 h1 {
-  font-size: var(--step-5);
+  font-size: var(--step-5) !important;
 }
 
 h2 {
-  font-size: var(--step-4);
+  font-size: var(--step-4) !important;
 }
 
 h3 {
-  font-size: var(--step-3);
+  font-size: var(--step-3) !important;
 }
 
 h4 {
-  font-size: var(--step-2);
+  font-size: var(--step-2) !important;
 }
 
 h5 {
-  font-size: var(--step-1);
+  font-size: var(--step-1) !important;
 }
 
 @media (prefers-color-scheme: light) {
@@ -84,7 +84,7 @@ h5 {
 }
 
 .c-scrollbar {
-  z-index: 9;
+  z-index: 9 !important;
 }
 
 /* Tailwind needs to be last in v4 */

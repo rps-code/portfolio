@@ -1,3 +1,12 @@
+<template>
+  <div
+    ref="projectPage"
+    class="projects-page"
+  >
+    <ContentDoc />
+  </div>
+</template>
+
 <script setup>
   const route = useRoute()
   const { gsap } = useGsap()
@@ -5,7 +14,7 @@
 
   const { data: project } = await useAsyncData(`project-${route.params.slug}`, () => queryContent(`project/${route.params.slug}`).findOne())
 
-  if (process.server) {
+  if (import.meta.server) {
     useHead(
       {
         htmlAttrs: { 'data-project-page': true },
@@ -23,15 +32,6 @@
 
   emitter.once('overlay:hiding', showBackButton)
 </script>
-
-<template>
-  <div
-    ref="projectPage"
-    class="projects-page"
-  >
-    <ContentDoc />
-  </div>
-</template>
 
 <style lang="scss">
   [data-project-page] .loader {

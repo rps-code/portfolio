@@ -72,7 +72,7 @@ void main() {
   vec3 firstColor = mix(_color3, _color2, firstPattern);
   vec3 resultingPattern = mix(firstColor, _color1, secondPattern);
 
-  float grainStrength = 0.075;
+  float grainStrength = 0.05;
   if (pixelRatio > 1.8) grainStrength = 0.125;
 
   vec2 uvNoise = vPosition.xy;

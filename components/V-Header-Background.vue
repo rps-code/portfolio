@@ -28,10 +28,13 @@
   let aspect = 16 / 9
 
   function resize() {
+    const dpr = Math.min(window.devicePixelRatio, MAX_DPR)
+
     renderer.setSize(window.innerWidth, window.innerHeight)
     camera.perspective({ aspect: gl.canvas.width / gl.canvas.height })
 
-    object.program.uniforms.resolution.value.set(window.innerWidth, window.innerHeight)
+    object.program.uniforms.resolution.value.set(window.innerWidth * dpr, window.innerHeight * dpr)
+    object.program.uniforms.pixelRatio.value = dpr
 
     object.updateMatrix()
     camera.updateMatrix()
@@ -52,9 +55,11 @@
     const backgroundColor = pallet.color1
     const clearColor = (isDarkMode.value ? backgroundColor.dark : backgroundColor.light).map(number => number / 255)
 
+    const dpr = Math.min(window.devicePixelRatio, MAX_DPR)
+
     renderer = new Renderer({
       canvas: canvas.value,
-      dpr: Math.min(window.devicePixelRatio, MAX_DPR),
+      dpr,
       alpha: false,
       depth: false,
       width: window.innerWidth,
@@ -63,7 +68,6 @@
     })
 
     gl = renderer.gl
-
     gl.clearColor(...clearColor, 1)
 
     camera = new Camera(gl, { fov: 70, aspect, near: 0.5, far: 1.5 })
@@ -72,7 +76,6 @@
     scene = new Transform()
 
     const objectSize = 2
-
     const objectGeometry = new Plane(gl, {
       width: objectSize * aspect,
       height: objectSize
@@ -89,39 +92,25 @@
         time: { value: 0.0 },
         randomSeed: { value: Math.random() },
         objectOpacity: { value: 0.0 },
-        noisePower: { value: 1.0 },
-        pixelRatio: { value: window.devicePixelRatio },
-        resolution: {
-          value: new Vec2(window.innerWidth, window.innerHeight)
-        },
-        color1: {
-          value: isDarkMode.value ? new Color(pallet.color1.dark) : new Color(pallet.color1.light)
-        },
-        color2: {
-          value: isDarkMode.value ? new Color(pallet.color2.dark) : new Color(pallet.color2.light)
-        },
-        color3: {
-          value: isDarkMode.value ? new Color(pallet.color3.dark) : new Color(pallet.color3.light)
-        }
+        noisePower: { value: 2.0 },
+        pixelRatio: { value: dpr },
+        resolution: { value: new Vec2(window.innerWidth * dpr, window.innerHeight * dpr) },
+        color1: { value: isDarkMode.value ? new Color(pallet.color1.dark) : new Color(pallet.color1.light) },
+        color2: { value: isDarkMode.value ? new Color(pallet.color2.dark) : new Color(pallet.color2.light) },
+        color3: { value: isDarkMode.value ? new Color(pallet.color3.dark) : new Color(pallet.color3.light) }
       }
     })
 
-    object = new Mesh(gl, {
-      geometry: objectGeometry,
-      program: objectMaterial
-    })
+    object = new Mesh(gl, { geometry: objectGeometry, program: objectMaterial })
     object.setParent(scene)
 
     isShaderRunning = true
-
     object.matrixAutoUpdate = false
     camera.matrixAutoUpdate = false
 
     const observer = new ResizeObserver(resize)
     observer.observe(canvas.value.parentElement)
 
-    // NOTE: try to use only one requestAnimationFrame
-    // this will improve overall performance
     const callbackTicker = gsap.ticker.add(render)
 
     gsap.to(object.program.uniforms.objectOpacity, {
@@ -133,7 +122,6 @@
 
     onBeforeUnmount(() => {
       gsap.ticker.remove(callbackTicker)
-
       observer.disconnect()
     })
   }
