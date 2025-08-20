@@ -39,7 +39,7 @@
     <NuxtLink
       ref="contactEmail"
       v-hoverable.mail
-      href="mailto:hello@karlchelton.com"
+      href="mailto:karlchelton@proton.me"
       class="contact__email"
     >
       <span

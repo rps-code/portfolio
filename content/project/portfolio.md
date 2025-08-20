@@ -35,7 +35,7 @@ The code started as a fork from [logotip4ik](https://github.com/logotip4ik)’s 
 
 - [Github](https://github.com/rps-code)
 - [LinkedIn](https://www.linkedin.com/in/karl-chelton-ba067a174)
-- [Email](mailto:contact@karlchelton.com)
+- [Email](mailto:karlchelton@proton.me)
 
 <br />
 
