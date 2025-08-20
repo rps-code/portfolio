@@ -54,6 +54,9 @@
 
   const { gsap } = useGsap()
 
+  const footer = ref(null)
+  const footerWrapper = ref(null)
+
   gsap.registerPlugin(ScrollToPlugin)
 
   const scrollToTop = () => {
@@ -70,6 +73,12 @@
       }
     })
   }
+
+  onMounted(() => {
+    const resizeObserver = new ResizeObserver(() => gsap.set(footerWrapper.value, { '--footer-wrapper-height': `${footer.value.clientHeight}px` }))
+    resizeObserver.observe(footer.value)
+    onBeforeUnmount(() => resizeObserver.disconnect())
+  })
 </script>
 
 <style lang="scss">
